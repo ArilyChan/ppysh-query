@@ -118,6 +118,8 @@ class ScoreObject {
         // 获取谱面信息
         let mapCalculater = await new MapCalculater(this.beatmap_id, { mods: this.mods, combo: this.maxcombo, nmiss: this.countmiss, acc: this.acc }).init(mode);
         const map = mapCalculater.map;
+        if (map.artist_unicode == "") map.artist_unicode = map.artist;
+        if (map.title_unicode == "") map.title_unicode = map.title;
         this.beatmapTitle = "谱面 " + this.beatmap_id + " " + map.artist_unicode + " - " + map.title_unicode + " (" + map.creator + ") [" + map.version + "]";
         if (mode === 0) {
             const ar = map.ar;
