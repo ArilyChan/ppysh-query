@@ -3,7 +3,7 @@
 const CommandsInfo = require("./command/CommandsInfo");
 const Command = require("./command/Command");
 
-class ppysbQuery {
+class ppyshQuery {
     /**
      * @param {Object} params 
      * @param {Array<Number>} params.admin 管理员列表，必要
@@ -42,4 +42,4 @@ class ppysbQuery {
 }
 
 
-module.exports = ppysbQuery;
+module.exports = ppyshQuery;
