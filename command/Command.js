@@ -72,7 +72,7 @@ class Command {
         else if (argName.indexOf("mode") >= 0) errorMessage = errorMessage + "缺少必要参数：模式";
         else if (argName.indexOf("limit") >= 0) errorMessage = errorMessage + "缺少必要参数：索引";
         else if (argName.indexOf("mods") >= 0) errorMessage = errorMessage + "缺少必要参数：mod";
-        if (argNecessity === 1) errorMessage = errorMessage + "，您也可以用setid绑定您的ppysb账号";
+        if (argNecessity === 1) errorMessage = errorMessage + "，您也可以用setid绑定您的osu账号";
         return errorMessage;
     }
 

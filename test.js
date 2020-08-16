@@ -1,8 +1,8 @@
 "use strict";
 
-const ppysbQuery = require("./index");
+const ppyshQuery = require("./index");
 
-let psq = new ppysbQuery({
+let psq = new ppyshQuery({
     admin: [2,3],
     apiKey: require("./apiToken.json").apiToken,
     database: "./database.db",
