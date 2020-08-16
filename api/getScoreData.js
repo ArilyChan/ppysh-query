@@ -27,8 +27,8 @@ class getScoreData {
             if (this.isTop) argObject.limit = 1; // limit = 1 即为最高pp
             let scoreObjects = await this.getScoreObjects(argObject);
             let output = "";
-            // output = output + beatmapObject.toScoreTitle(scoreObjects[0].mode);
-            output = output + scoreObjects[0].toCompleteString(parseInt(argObject.m));
+            // output = output + scoreObjects[0].toCompleteString(parseInt(argObject.m));
+            output = output + await scoreObjects[0].toCompleteString(parseInt(argObject.m), true);
             return output;
         }
         catch (ex) {

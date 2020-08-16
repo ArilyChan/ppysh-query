@@ -1,9 +1,11 @@
 {
   "name": "ppysh-query",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "main": "index.js",
   "dependencies": {
-    "nedb": "^1.8.0"
+    "nedb": "^1.8.0",
+    "node-fetch": "^2.6.0",
+    "ojsama": "^1.2.5"
   },
   "devDependencies": {},
   "scripts": {

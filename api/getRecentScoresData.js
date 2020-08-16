@@ -30,8 +30,8 @@ class getRecentScoresData {
                 // 寻找rank不等于F的
                 for (var i = 0; i < scoreObjects.length; i++) {
                     if (scoreObjects[i].rank != "F") {
-                        // output = output + scoreObjects[i].beatmap.toScoreTitle(scoreObjects[i].mode);
-                        output = output + scoreObjects[i].toCompleteString(parseInt(this.apiObject.m));
+                        //output = output + scoreObjects[i].toCompleteString(parseInt(this.apiObject.m));
+                        output = output + await scoreObjects[i].toCompleteString(parseInt(this.apiObject.m), true);
                         return output;
                     }
                 }
@@ -40,8 +40,8 @@ class getRecentScoresData {
             else {
                 let scoreObject = scoreObjects.pop();
                 let output = "";
-                // output = output + scoreObject.beatmap.toScoreTitle(scoreObject.mode);
-                output = output + scoreObject.toCompleteString(parseInt(this.apiObject.m));
+                // output = output + scoreObject.toCompleteString(parseInt(this.apiObject.m));
+                output = output + await scoreObject.toCompleteString(parseInt(this.apiObject.m), true);
                 return output;
             }
         }

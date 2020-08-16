@@ -56,8 +56,8 @@ class getBestScoresData {
                 let scoreObjects = await this.getBestScoresObject();
                 let scoreObject = scoreObjects.pop();
                 let output = "";
-                // output = output + scoreObject.beatmap.toScoreTitle(scoreObject.mode);
-                output = output + scoreObject.toCompleteString(parseInt(this.apiObject.m));
+                // output = output + scoreObject.toCompleteString(parseInt(this.apiObject.m));
+                output = output + await scoreObject.toCompleteString(parseInt(this.apiObject.m), true);
                 return output;
             }
             else {
