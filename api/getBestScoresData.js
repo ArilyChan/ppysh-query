@@ -90,7 +90,7 @@ class getBestScoresData {
     async outputRankNumber() {
         try {
             // bp列表
-            let output = "成绩统计：\n";
+            let output = "bp成绩统计：\n";
             let scoreObjects = await this.getAllBestScoresObject();
             let ranks = [];
             let counts = [];
