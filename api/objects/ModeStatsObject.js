@@ -12,6 +12,11 @@ class ModeStatsObject {
             this.pp = parseFloat(user.pp_raw);
             this.rankedScores = parseInt(user.ranked_score);
             this.play_time = parseInt(user.total_seconds_played) || 0;
+            this.count_rank_ss = parseInt(user.count_rank_ss);
+            this.count_rank_ssh = parseInt(user.count_rank_ssh);
+            this.count_rank_s = parseInt(user.count_rank_s);
+            this.count_rank_sh = parseInt(user.count_rank_sh);
+            this.count_rank_a = parseInt(user.count_rank_a);
         }
     }
 
@@ -24,6 +29,11 @@ class ModeStatsObject {
         this.pp = modeStatsJson.pp;
         this.rankedScores = modeStatsJson.rankedScores;
         this.play_time = modeStatsJson.play_time;
+        this.count_rank_ss = parseInt(modeStatsJson.count_rank_ss);
+        this.count_rank_ssh = parseInt(modeStatsJson.count_rank_ssh);
+        this.count_rank_s = parseInt(modeStatsJson.count_rank_s);
+        this.count_rank_sh = parseInt(modeStatsJson.count_rank_sh);
+        this.count_rank_a = parseInt(modeStatsJson.count_rank_a);
 
         return this;
     }
@@ -38,6 +48,11 @@ class ModeStatsObject {
         output = output + "游玩次数：" + this.playcount + "\n";
         output = output + "rank总分：" + utils.format_number(this.rankedScores) + "\n";
         output = output + "游戏时长：" + utils.getUserTimePlayed(this.play_time) + "\n";
+        output = output + "SSH：" + this.count_rank_ssh + "\n";
+        output = output + "SS：" + this.count_rank_ss + "\n";
+        output = output + "SH：" + this.count_rank_sh + "\n";
+        output = output + "S：" + this.count_rank_s + "\n";
+        output = output + "A：" + this.count_rank_a + "\n";
 
         return output;
     }
@@ -94,6 +109,11 @@ class ModeStatsObject {
         const dPP = this.addCompareString(this.pp, oldModeStats.pp, 2);
         const dRankedScores = this.addCompareRankedScores(this.rankedScores, oldModeStats.rankedScores);
         const dPlay_time = this.addCompareUserTimePlayed(this.play_time, oldModeStats.play_time);
+        const dSSH = this.addCompareString(this.count_rank_ssh, oldModeStats.count_rank_ssh);
+        const dSS = this.addCompareString(this.count_rank_ss, oldModeStats.count_rank_ss);
+        const dSH = this.addCompareString(this.count_rank_sh, oldModeStats.count_rank_sh);
+        const dS = this.addCompareString(this.count_rank_s, oldModeStats.count_rank_s);
+        const dA = this.addCompareString(this.count_rank_a, oldModeStats.count_rank_a);
 
         let output = "";
         output = output + "acc：" + this.accuracy + "%" + dAccuracy;
@@ -104,6 +124,11 @@ class ModeStatsObject {
         output = output + "游玩次数：" + this.playcount + dPlaycount;
         output = output + "rank总分：" + utils.format_number(this.rankedScores) + dRankedScores;
         output = output + "游戏时长：" + utils.getUserTimePlayed(this.play_time) + dPlay_time;
+        output = output + "SSH：" + this.count_rank_ssh + dSSH;
+        output = output + "SS：" + this.count_rank_ss + dSS;
+        output = output + "SH：" + this.count_rank_sh + dSH;
+        output = output + "S：" + this.count_rank_s + dS;
+        output = output + "A：" + this.count_rank_a + dA;
 
         return output;
     }
