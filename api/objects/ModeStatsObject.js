@@ -119,7 +119,7 @@ class ModeStatsObject {
         output = output + "acc：" + this.accuracy + "%" + dAccuracy;
         output = output + "等级：" + this.level + dLevel;
         output = output + "pp：" + this.pp + dPP;
-        output = output + "全服排名：#" + this.rank + dRank;
+        output = output + "全球排名：#" + this.rank + dRank;
         output = output + "本地排名：#" + this.countryRank + dCountryRank;
         output = output + "游玩次数：" + this.playcount + dPlaycount;
         output = output + "rank总分：" + utils.format_number(this.rankedScores) + dRankedScores;
