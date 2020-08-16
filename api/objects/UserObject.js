@@ -18,7 +18,7 @@ class UserObject {
         this.userId = thisUserObject.userId;
         this.username = thisUserObject.username;
         this.mode = parseInt(mode);
-        this.modeStats = new ModeStatsObject().init(thisUserObject);
+        this.modeStats = new ModeStatsObject().init(thisUserObject.modeStats);
 
         this.recordDate = new Date(thisUserObject.recordDate);
         return this;
