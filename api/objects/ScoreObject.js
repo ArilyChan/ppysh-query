@@ -4,8 +4,8 @@ const utils = require('../utils');
 const MapCalculater = require("./MapCalculater");
 
 class ScoreObject {
-    constructor(score) {
-        this.beatmap_id = score.beatmap_id;
+    constructor(score, beatmapId) {
+        this.beatmap_id = score.beatmap_id || beatmapId;  // get_score没有提供beatmapId
         this.user_id = score.user_id;
 
         this.time = score.date; // 字符串格式，YYYY-MM-DDTHH:MM:SSZ
