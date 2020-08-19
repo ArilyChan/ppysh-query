@@ -51,7 +51,7 @@ class ScoreObject {
         }
         const userId = (this.user_id) ? "userId: " + this.user_id + "\n" : "";
         const accString = "ACC：" + this.acc.toFixed(2) + "%\n";
-        const comboString = "combo: " + this.maxcombo + "\n";
+        const comboString = (this.fullCombo) ? "combo: " + this.maxcombo + " / " + this.fullCombo + "\n" : "combo: " + this.maxcombo + "\n";
         const modsString = "mod：" + utils.getScoreModsString(this.mods) + "\n";
         const rankString = "rank：" + this.rank + "\n";
         const scoreString = "分数：" + utils.format_number(this.score) + "\n";
@@ -127,6 +127,7 @@ class ScoreObject {
             const hp = map.hp;
             const cs = map.cs;
             const resultStat = mapCalculater.calculateStatWithMods({ ar, od, hp, cs }, this.mods);
+            this.fullCombo = mapCalculater.maxcombo;
             this.beatmapParams = "CS" + resultStat.cs.toFixed(1) + "  AR" + resultStat.ar.toFixed(1) + "  OD" + resultStat.od.toFixed(1) + "  HP" + resultStat.hp.toFixed(1);
             this.stars = mapCalculater.stars.total.toFixed(2);
             this.ppString = "pp: " + mapCalculater.pp.total.toFixed(2) + "pp (aim: " + mapCalculater.pp.aim.toFixed(0) + "  spd: " + mapCalculater.pp.speed.toFixed(0) + "  acc: " + mapCalculater.pp.acc.toFixed(0) + ")";
