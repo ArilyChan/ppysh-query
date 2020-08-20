@@ -9,9 +9,9 @@ class BeatmapObject {
         this.mode = parseInt(beatmap.mode);
         this.beatmapMode = parseInt(beatmap.mode);
         this.artist = beatmap.artist;
-        this.artist_unicode = unescape(beatmap.artist_unicode);
+        this.artist_unicode = (beatmap.artist_unicode) ? unescape(beatmap.artist_unicode) : this.artist;
         this.title = beatmap.title;
-        this.title_unicode = unescape(beatmap.title_unicode);
+        this.title_unicode = (beatmap.title_unicode) ? unescape(beatmap.title_unicode) : this.title;
         this.diff = beatmap.version;
         this.creator = beatmap.creator;
         this.approved = utils.getApprovedString(beatmap.approved);

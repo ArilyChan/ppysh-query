@@ -190,6 +190,7 @@ class Command {
                         case 'api_todaybp': return this.getApiTodayBpInfo(arg);
                         case 'api_recent': return this.getApiRecentInfo(arg, false);
                         case 'api_recent_passed': return this.getApiRecentInfo(arg, true);
+                        case 'sayo_music': return this.getSayoMusic(arg);
                         case 'bot_bind': return this.getBotBindInfo(arg, nedb);
                         case 'bot_unbind': return this.getBotUnbindInfo(arg, nedb);
                         case 'bot_setmode': return this.getBotSetmodeInfo(arg, nedb);
@@ -246,22 +247,21 @@ class Command {
         return await new getBestScoresData(this.host, this.apikey, apiObjects).outputToday();
     }
 
-    /*
-    async getApiBpNumberInfo(arg) {
+    async getApiRecentInfo(arg, isPassed) {
+        let apiObjects = arg.getOsuApiObject();
+        return await new getRecentScoresData(this.host, this.apikey, apiObjects, isPassed).output();
+    }
+
+    async getSayoMusic(arg) {
         try {
-            let arg2 = await arg.getBeatmapId();
-            let apiObjects = arg2.getOsuApiObject();
-            return await new getBestScoresData(this.host, this.apikey, apiObjects, arg.beatmapSearchString).outputBpNumber();
+            // 为了偷懒，这里的beatmapId其实是beatmapSetId，使用时一定要注意
+            const arg2 = await arg.getBeatmapSetId();
+            const beatmapSetId = arg2.beatmapId;
+            return `[CQ:record,file=https://cdnx.sayobot.cn:25225/preview/${beatmapSetId}.mp3]`;
         }
         catch (ex) {
             return ex;
         }
-    }
-    */
-
-    async getApiRecentInfo(arg, isPassed) {
-        let apiObjects = arg.getOsuApiObject();
-        return await new getRecentScoresData(this.host, this.apikey, apiObjects, isPassed).output();
     }
 
     async getBotBindInfo(arg, nedb) {

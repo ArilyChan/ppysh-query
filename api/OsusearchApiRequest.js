@@ -57,7 +57,7 @@ class OsusearchApi {
 
 
 
-    static async search(_data) {
+    static async search(_data, returnType = "id") {
         let params = {};
         if (_data.title) params.title = _data.title;
         if (_data.artist) params.artist = _data.artist;
@@ -70,8 +70,12 @@ class OsusearchApi {
                 if (!data || data === "Server error.") return { code: 404 };
                 let result = JSON.parse(data);
                 if (result.result_count === 0) return { code: 404 };
-                if (result.beatmaps.length > 1) return this.findtheMostSuitable(result.beatmaps, params).beatmap_id;
-                return result.beatmaps[0].beatmap_id;
+                let resultBeatmap;
+                if (result.beatmaps.length > 1) resultBeatmap = this.findtheMostSuitable(result.beatmaps, params);
+                else resultBeatmap = result.beatmaps[0];
+                if (returnType === "id") return resultBeatmap.beatmap_id;
+                else if (returnType === "set") return resultBeatmap.beatmapset_id;
+                else return resultBeatmap;
             }
             catch (ex) {
                 console.log(ex);

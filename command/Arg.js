@@ -248,6 +248,21 @@ class Arg {
         }
         return this;
     }
+
+    // 为了偷懒，这里的beatmapId其实是beatmapSetId，使用时一定要注意
+    async getBeatmapSetId() {
+        if (this.beatmapId > 0) return this;
+        if (Object.keys(this.beatmapSearchInfo).length <= 0) return this;
+        let id = await OsusearchApi.search(this.beatmapSearchInfo, "set");
+        if (typeof id === "number") {
+            this.beatmapId = id;
+        }
+        else {
+            if (id.code === 404) throw "找不到谱面：" + JSON.stringify(this.beatmapSearchInfo);
+            else throw "从osusearch获取谱面id失败";
+        }
+        return this;
+    }
 }
 
 

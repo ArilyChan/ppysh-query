@@ -94,6 +94,13 @@ function CommandsInfo(prefix, prefix2) {
             args: ['userStringWithoutBeatmap', 'modeString'],
             argNecessity: [1, 0],
         }, {
+            type: 'sayo_music',
+            info: '试听谱面',
+            command: ['music'],
+            argsInfo: '[beatmap]',
+            args: ['beatmapStringWithoutUser'],
+            argNecessity: [2],
+        }, {
             type: 'bot_bind',
             info: '绑定osu账号',
             command: ['setid', 'bind', 'set'],
