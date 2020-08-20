@@ -5,6 +5,14 @@ const https = require('https');
 
 class OsuApi {
     static apiRequest(options) {
+
+        let request_timer = null, req = null;
+        // 请求5秒超时
+        request_timer = setTimeout(function () {
+            req.abort();
+            throw 'Request Timeout.';
+        }, 5000);
+
         return new Promise((resolve, reject) => {
             const contents = querystring.stringify(options.data);
             const requestOptions = {
@@ -22,15 +30,25 @@ class OsuApi {
 
             // console.log("发送请求：" + requestOptions.host + requestOptions.path);
 
-            const req = https.request(requestOptions, function (res) {
+            req = https.request(requestOptions, function (res) {
+                clearTimeout(request_timer);
+
+                // 等待响应20秒超时
+                var response_timer = setTimeout(function () {
+                    res.destroy();
+                    throw 'Response Timeout.';
+                }, 20000);
+
                 res.setEncoding('utf8');
                 res.on('data', function (chunk) {
                     _data += chunk;
                 });
                 res.on('end', function () {
+                    clearTimeout(response_timer);
                     resolve(_data);
                 });
                 res.on('error', function (e) {
+                    clearTimeout(response_timer);
                     console.dir('problem with request: ' + e.message);
                     reject(e)
                 });

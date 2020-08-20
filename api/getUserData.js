@@ -16,6 +16,7 @@ class getUserData {
         const user = await OsuApi.getUser(this.apiObject, this.host, this.apikey);
         if (user.code === 404) throw "找不到玩家 " + utils.apiObjectToString(this.apiObject);
         if (user.code === "error") throw "获取玩家出错 " + utils.apiObjectToString(this.apiObject);
+        if (user.length <= 0) throw "获取玩家出错 " + utils.apiObjectToString(this.apiObject);
         let userObject = new UserObject(user[0]);
         // 存储userObject
         let mode = (this.apiObject.m) ? parseInt(this.apiObject.m) : 0;
