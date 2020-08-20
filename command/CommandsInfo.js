@@ -93,6 +93,7 @@ function CommandsInfo(prefix, prefix2) {
             argsInfo: '(user) (:mode)',
             args: ['userStringWithoutBeatmap', 'modeString'],
             argNecessity: [1, 0],
+            /*
         }, {
             type: 'sayo_music',
             info: '试听谱面',
@@ -100,6 +101,7 @@ function CommandsInfo(prefix, prefix2) {
             argsInfo: '[beatmap]',
             args: ['beatmapStringWithoutUser'],
             argNecessity: [2],
+            */
         }, {
             type: 'bot_bind',
             info: '绑定osu账号',
