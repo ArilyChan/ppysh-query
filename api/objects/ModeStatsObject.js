@@ -104,7 +104,7 @@ class ModeStatsObject {
         const dAccuracy = this.addCompareAcc(this.accuracy, oldModeStats.accuracy, 2);
         const dPlaycount = this.addCompareString(this.playcount, oldModeStats.playcount);
         const dLevel = this.addCompareString(this.level, oldModeStats.level, 2);
-        const dCountryRank = this.addCompareString(this.countryRank, oldModeStats.countryRank);
+        const dCountryRank = this.addCompareRank(this.countryRank, oldModeStats.countryRank);
         const dRank = this.addCompareRank(this.rank, oldModeStats.rank);
         const dPP = this.addCompareString(this.pp, oldModeStats.pp, 2);
         const dRankedScores = this.addCompareRankedScores(this.rankedScores, oldModeStats.rankedScores);
