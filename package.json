@@ -1,11 +1,13 @@
 {
   "name": "ppysh-query",
-  "version": "1.1.5",
+  "version": "1.2.0",
   "main": "index.js",
   "dependencies": {
+    "glob": "^7.1.6",
     "nedb": "^1.8.0",
     "node-fetch": "^2.6.0",
-    "ojsama": "^1.2.5"
+    "ojsama": "^1.2.5",
+    "path": "^0.12.7"
   },
   "devDependencies": {},
   "scripts": {

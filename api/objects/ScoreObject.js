@@ -18,7 +18,7 @@ class ScoreObject {
         this.countmiss = parseInt(score.countmiss);
         this.countkatu = parseInt(score.countkatu);
         this.countgeki = parseInt(score.countgeki);
-        this.perfect = score.perfect; //0,1
+        this.perfect = parseInt(score.perfect); //0,1
 
         this.mods = parseInt(score.enabled_mods);
         this.rank = score.rank;

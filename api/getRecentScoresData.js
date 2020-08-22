@@ -5,15 +5,15 @@ const OsuApi = require("./ApiRequest");
 const utils = require("./utils");
 
 class getRecentScoresData {
-    constructor(host, apikey, apiObjects, isPassed) {
+    constructor(host, apiKey, apiObjects, isPassed) {
         this.host = host;
-        this.apikey = apikey;
+        this.apiKey = apiKey;
         this.apiObject = (Array.isArray(apiObjects)) ? apiObjects[0] : apiObjects; // 只允许查一个人
         this.isPassed = isPassed;
     }
 
     async getRecentScoresObject() {
-        const result = await OsuApi.getUserRecent(this.apiObject, this.host, this.apikey);
+        const result = await OsuApi.getUserRecent(this.apiObject, this.host, this.apiKey);
         if (result.code === 404) throw "找不到成绩 " + utils.apiObjectToString(this.apiObject);
         if (result.code === "error") throw "获取成绩出错 " + utils.apiObjectToString(this.apiObject);
         if ((!Array.isArray(result)) || (result.length <= 0)) throw "找不到成绩 " + utils.apiObjectToString(this.apiObject) + "\n";

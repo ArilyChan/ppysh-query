@@ -5,14 +5,14 @@ const OsuApi = require("./ApiRequest");
 const utils = require("./utils");
 
 class getBeatmapData {
-    constructor(host, apikey, apiObjects) {
+    constructor(host, apiKey, apiObjects) {
         this.host = host;
-        this.apikey = apikey;
+        this.apiKey = apiKey;
         this.apiObject = (Array.isArray(apiObjects)) ? apiObjects[0] : apiObjects; // 只允许同时查一张谱面
     }
 
     async getBeatmapObject() {
-        const beatmaps = await OsuApi.getBeatmaps(this.apiObject, this.host, this.apikey);
+        const beatmaps = await OsuApi.getBeatmaps(this.apiObject, this.host, this.apiKey);
         if (beatmaps.code === 404) throw "找不到谱面 " + utils.apiObjectToString(this.apiObject);
         if (beatmaps.code === "error") throw "获取谱面出错 " + utils.apiObjectToString(this.apiObject);
         if (beatmaps.length <= 0) throw "找不到谱面 " + utils.apiObjectToString(this.apiObject);

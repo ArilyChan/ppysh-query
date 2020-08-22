@@ -5,15 +5,15 @@ const OsuApi = require("./ApiRequest");
 const utils = require("./utils");
 
 class getScoreData {
-    constructor(host, apikey, apiObjects, isTop) {
+    constructor(host, apiKey, apiObjects, isTop) {
         this.host = host;
-        this.apikey = apikey;
+        this.apiKey = apiKey;
         this.apiObjects = apiObjects;
         this.isTop = isTop;
     }
 
     async getScoreObjects(argObject) {
-        const result = await OsuApi.getScores(argObject, this.host, this.apikey);
+        const result = await OsuApi.getScores(argObject, this.host, this.apiKey);
         if (result.code === 404) throw "找不到成绩 " + utils.apiObjectToString(argObject);
         if (result.code === "error") throw "获取成绩出错 " + utils.apiObjectToString(argObject);
         if ((!Array.isArray(result)) || (result.length <= 0)) throw "找不到成绩 " + utils.apiObjectToString(argObject);

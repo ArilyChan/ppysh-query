@@ -8,9 +8,9 @@ const utils = require('../api/utils');
 // userId, userName, mode, beforeUserObject, afterUserObject, (qqId), (defaultMode), _Id(db自带)
 
 class UserInfo {
-    constructor(host, apikey) {
+    constructor(host, apiKey) {
         this.host = host;
-        this.apikey = apikey;
+        this.apiKey = apiKey;
     }
 
     async updateToday(nedb, userId, newUserObjectJson, mode) {
@@ -63,7 +63,7 @@ class UserInfo {
                 await nedb.update({ $and: [{ qqId }, { mode:2 }] }, { $unset: { qqId: true, defaultMode: true } });
                 await nedb.update({ $and: [{ qqId }, { mode:3 }] }, { $unset: { qqId: true, defaultMode: true } });
             }
-            let userObject = await new getUserData(this.host, this.apikey, apiObject).getUserObject(nedb);
+            let userObject = await new getUserData(this.host, this.apiKey, apiObject).getUserObject(nedb);
 
             // 这时数据库已记录该玩家，添加qqId字段即可
             // 检查该玩家是否已被绑定其他玩家

@@ -19,7 +19,7 @@ npm install ArilyChan/ppysh-query
 const ppyshQuery = require("ppysh-query");
 let psq = new ppyshQuery({
     admin: [123456], // 管理员列表，必要
-    apiKey: "把你的apikey放这里", // osu Api token，必要
+    apiKey: "把你的apiKey放这里", // osu Api token，必要
     database: "./Opsbot-v1.db", // 数据库路径，默认为根目录下的Opsbot-v1.db
     prefix: "*", // 指令前缀，必须为单个字符，默认为*
     prefix2: "%" // 备用指令前缀，必须为单个字符，默认为%
