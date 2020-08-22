@@ -26,7 +26,7 @@ class CommandsInfo {
     // 加载modules内的enabled指令
     loadModules() {
         let commands = [];
-        glob.sync('./modules/*').map((file) => {
+        glob.sync(path.join(__dirname, '../modules/*.js')).map((file) => {
             try {
                 let module = require(path.resolve(file));
                 if (module !== undefined && module.enabled) commands.push(module);
