@@ -135,11 +135,11 @@ class getBestScoresData {
             for (let i = 0; i < enabled_mods_list.length; i++) {
                 if (enabled_mods_count[i] > 0) output = output + enabled_mods_count[i] + " 个 " + utils.getScoreModsString(enabled_mods_list[i]) + "\n";
             }
-            output = output + "最高pp：" + maxpp + "\n";
-            output = output + "最低pp：" + minpp + "\n";
+            output = output + "最高pp：" + maxpp.toFixed(0) + "\n";
+            output = output + "最低pp：" + minpp.toFixed(0) + "\n";
             const aboveSCount = rank_count[0] + rank_count[1] + rank_count[2] + rank_count[3];
             const sbCount = aboveSCount - perfectcount;
-            if (sbCount > 0) output = output + "其中有 " + sbCount + " 个S评级的成绩不是满combo QAQ";
+            if (sbCount > 0) output = output + "其中有 " + sbCount + " 个S评级的成绩不是满combo";
             return output;
         }
         catch (ex) {

@@ -1,6 +1,6 @@
 {
   "name": "ppysh-query",
-  "version": "1.2.1",
+  "version": "1.2.2",
   "main": "index.js",
   "dependencies": {
     "glob": "^7.1.6",

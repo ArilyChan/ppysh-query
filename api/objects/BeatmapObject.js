@@ -29,7 +29,7 @@ class BeatmapObject {
         let output = "";
         output = output + "谱面 " + this.beatmapId + " " + this.artist_unicode + " - " + this.title_unicode + "[" + this.diff + "] (" + this.creator + ")\n";
         output = output + "set： " + this.beatmapSetId + " 模式： " + utils.getModeString(this.beatmapMode) + " 状态： " + this.approved + "\n";
-        output = output + "CS" + this.cs + " AR" + this.ar + "  OD" + this.od + "  HP" + this.hp + "  BPM: " + this.bpm + " stars: " + this.stars.toFixed(2) + "\n";
+        output = output + "CS" + this.cs + "  AR" + this.ar + "  OD" + this.od + "  HP" + this.hp + "  BPM： " + this.bpm + " stars： " + this.stars.toFixed(2) + "\n";
         output = output + "max Combo： " + this.maxCombo + "  时长： " + this.length + "\n";
         output = output + "\n";
         output = output + "http://osu.ppy.sh/b/" + this.beatmapId;
