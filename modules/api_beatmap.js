@@ -7,7 +7,7 @@ module.exports = {
     adminCommand: false,
     type: 'api_beatmap',
     info: '谱面查询',
-    command: ['beatmap', 'search', 'b', 'map'],
+    command: ['b', 'beatmap', 'search', 'map'],
     argsInfo: '[beatmap] (:mode)',
     args: ['beatmapStringWithoutUser', 'modeString'],
     argNecessity: [2, -1],

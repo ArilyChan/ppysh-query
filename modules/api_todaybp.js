@@ -7,7 +7,7 @@ module.exports = {
     adminCommand: false,
     type: 'api_todaybp',
     info: '今日bp列表查询',
-    command: ['todaybp'],
+    command: ['tbp', 'todaybp'],
     argsInfo: '(user) (:mode)',
     args: ['userStringWithoutBeatmap', 'modeString'],
     argNecessity: [1, 0],
