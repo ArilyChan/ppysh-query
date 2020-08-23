@@ -23,6 +23,8 @@ class ScoreObject {
         this.mods = parseInt(score.enabled_mods);
         this.rank = score.rank;
         this.pp = parseFloat(score.pp) || 0; // recent没有提供pp
+
+        this.errorMessage = "";
     }
 
     getPlayedDate() {
@@ -38,7 +40,13 @@ class ScoreObject {
 
     async toCompleteString(mode, exScore = false) {
         this.calACC(mode);
-        if (exScore) await this.extendScore(mode);
+        try {
+            if (exScore) await this.extendScore(mode);
+        }
+        catch (ex) {
+            console.log(ex);
+            this.errorMessage = "获取谱面失败，缺少部分谱面信息，请重试";
+        }
         let beatmapString = "";
         if (this.beatmapTitle) {
             beatmapString = this.beatmapTitle + "\n";
@@ -92,7 +100,7 @@ class ScoreObject {
         }
         const playDate = "日期：" + this.getPlayedDate().toLocaleDateString();
 
-        return beatmapString + userId + accString + comboString + modsString + rankString + scoreString + counts.join("|") + "\n" + ppString + playDate;
+        return this.errorMessage + beatmapString + userId + accString + comboString + modsString + rankString + scoreString + counts.join("|") + "\n" + ppString + playDate;
     }
 
     calACC(mode) {

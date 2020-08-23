@@ -111,6 +111,7 @@ class Command {
             // 输出全部指令
             output = output + "osu.ppy.sh 简略查询\n";
             for (let com of commands) {
+                if (com.adminCommand) continue; // 不显示管理员指令
                 if (!com.helpInfo.defaultHelp) output = output + prefix + com.helpInfo.customHelp + "\n";
                 else output = output + prefix + com.command[0] + " " + com.info + "\n";
             }

@@ -153,6 +153,29 @@ class getBestScoresData {
             return ex;
         }
     }
+
+    async outputBpNumber() {
+        try {
+            // bp列表
+            let output = "";
+            let scoreObjects = await this.getAllBestScoresObject();
+            let length = scoreObjects.length;
+            let beatmapId = this.apiObject.b.toString();
+            for (let i = 0; i < length; i++) {
+                if (beatmapId === scoreObjects[i].beatmap_id) { // 都是字符串格式
+                    output = output + await scoreObjects[i].toCompleteString(parseInt(this.apiObject.m), true);
+                    output = output + "\n该谱面是您的bp #" + (i + 1).toString();
+                    return output;
+                }
+            }
+            output = output + "谱面id: " + this.apiObject.b + "\n";
+            output = output + "在您的bp列表里找不到该谱面。";
+            return output;
+        }
+        catch (ex) {
+            return ex;
+        }
+    }
 }
 
 
