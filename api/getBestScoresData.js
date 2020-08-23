@@ -98,8 +98,7 @@ class getBestScoresData {
             let maxpp = 0;
             let minpp = 0;
             let perfectcount = 0;
-            let enabled_mods_list = [];
-            let enabled_mods_count = [];
+            let summary_mods = []; // {mod, count, maxpp}
             for (let i = 0; i < length; i++) {
                 // 记录rank
                 let rank = scoreObjects[i].rank;
@@ -111,32 +110,40 @@ class getBestScoresData {
                 else {
                     rank_count[rankIndex] = rank_count[rankIndex] + 1;
                 }
-                // 记录mods
-                let mods = scoreObjects[i].mods;
-                let modIndex = enabled_mods_list.indexOf(mods);
-                if (modIndex < 0) {
-                    enabled_mods_list.push(mods);
-                    enabled_mods_count.push(1);
-                }
-                else {
-                    enabled_mods_count[modIndex] = enabled_mods_count[modIndex] + 1;
-                }
                 // 记录pp最大值和最小值，一般是按pp降序排列的，这个只是以防万一
                 let pp = scoreObjects[i].pp;
                 if (pp > maxpp) maxpp = pp;
                 if (minpp === 0) minpp = pp;
                 else if (pp < minpp) minpp = pp;
+                // 记录mods，每种mod分开记录次数和最大pp
+                let mods = utils.getScoreModsStringArray(scoreObjects[i].mods);
+                mods.map((mod) => {
+                    let summary_mods_Index = summary_mods.findIndex((value) => value.mod === mod);
+                    if (summary_mods_Index < 0) {
+                        let newmod = {
+                            mod: mod,
+                            count: 1,
+                            maxpp: pp
+                        };
+                        summary_mods.push(newmod);
+                    }
+                    else {
+                        summary_mods[summary_mods_Index].count += 1;
+                        if (pp > summary_mods[summary_mods_Index].maxpp) summary_mods[summary_mods_Index].maxpp = pp;
+                    }
+                });
                 if (scoreObjects[i].perfect === 1) perfectcount += 1;
             }
             for (let i = 0; i < rank_list.length; i++) {
                 if (rank_count[i] > 0) output = output + rank_count[i] + " 个 " + rank_list[i] + "\n";
             }
             output = output + "mod统计：\n";
-            for (let i = 0; i < enabled_mods_list.length; i++) {
-                if (enabled_mods_count[i] > 0) output = output + enabled_mods_count[i] + " 个 " + utils.getScoreModsString(enabled_mods_list[i]) + "\n";
+            summary_mods.sort((a, b) => b.count - a.count);
+            for (let i = 0; i < summary_mods.length; i++) {
+                output = output + summary_mods[i].count + " 个 " + summary_mods[i].mod + " ， 最高pp：" + summary_mods[i].maxpp.toFixed(0) + "\n";
             }
-            output = output + "最高pp：" + maxpp.toFixed(0) + "\n";
-            output = output + "最低pp：" + minpp.toFixed(0) + "\n";
+            output = output + "bp最高pp：" + maxpp.toFixed(0) + "\n";
+            output = output + "bp最低pp：" + minpp.toFixed(0) + "\n";
             const aboveSCount = rank_count[0] + rank_count[1] + rank_count[2] + rank_count[3];
             const sbCount = aboveSCount - perfectcount;
             if (sbCount > 0) output = output + "其中有 " + sbCount + " 个S评级的成绩不是满combo";

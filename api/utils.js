@@ -42,7 +42,7 @@ class utils {
             'Flashlight': 1 << 10,
             'Autoplay': 1 << 11,
             'SpunOut': 1 << 12,
-            'Relax2': 1 << 13, // Autopilot
+            'Autopilot': 1 << 13, // Relax2
             'Perfect': 1 << 14, // SuddenDeath
             'Key4': 1 << 15,
             'Key5': 1 << 16,
@@ -69,6 +69,53 @@ class utils {
             if (raw_mods & Mods[mod]) modsArr.push(mod);
         }
         return modsArr;
+    }
+
+    // enabled_mods转为字符串数组
+    static getScoreModsStringArray(enabledMods) {
+        const modsArr = this.getScoreMods(enabledMods);
+        if (modsArr.length <= 0) return ["None"];
+        let abbMods = [];
+        for (let i = 0; i < modsArr.length; i++) {
+            switch (modsArr[i]) {
+                case "Hidden": { abbMods.push("HD"); break; }
+                case "HardRock": { abbMods.push("HR"); break; }
+                case "DoubleTime": { abbMods.push("DT"); break; }
+                case "Nightcore": { abbMods.push("NC"); break; }
+                case "Flashlight": { abbMods.push("FL"); break; }
+                case "Easy": { abbMods.push("EZ"); break; }
+                case "HalfTime": { abbMods.push("HT"); break; }
+                case "NoFail": { abbMods.push("NF"); break; }
+                case "SpunOut": { abbMods.push("SO"); break; }
+                case "SuddenDeath": { abbMods.push("SD"); break; }
+                case "Perfect": { abbMods.push("PF"); break; }
+                case "Autopilot": { abbMods.push("AP"); break; }
+                case "TouchDevice": { abbMods.push("TD"); break; }
+                case "FadeIn": { abbMods.push("FI"); break; }
+                case "Random": { abbMods.push("RD"); break; }
+                case "Mirror": { abbMods.push("MR"); break; }
+                case "Key1": { abbMods.push("1K"); break; }
+                case "Key2": { abbMods.push("2K"); break; }
+                case "Key3": { abbMods.push("3K"); break; }
+                case "Key4": { abbMods.push("4K"); break; }
+                case "Key5": { abbMods.push("5K"); break; }
+                case "Key6": { abbMods.push("6K"); break; }
+                case "Key7": { abbMods.push("7K"); break; }
+                case "Key8": { abbMods.push("8K"); break; }
+                case "Key9": { abbMods.push("9K"); break; }
+                case "ScoreV2": { abbMods.push("ScoreV2"); break; }
+                case "Relax": { abbMods.push("Relax"); break; }
+            }
+        }
+        // 有NC时去掉DT
+        const indexDT = abbMods.indexOf("DT");
+        const indexNC = abbMods.indexOf("NC");
+        if (indexNC >= 0) abbMods.splice(indexDT, 1);
+        // 有PF时去掉SD
+        const indexSD = abbMods.indexOf("SD");
+        const indexPF = abbMods.indexOf("PF");
+        if (indexPF >= 0) abbMods.splice(indexSD, 1);
+        return abbMods;
     }
 
     // enabled_mods转为字符串
@@ -202,7 +249,7 @@ class utils {
         output = output + " ）";
         return output;
     }
-    
+
 }
 
 
