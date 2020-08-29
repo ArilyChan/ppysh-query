@@ -36,4 +36,4 @@ let reply = await psq.apply(
 ```
 
 ### 指令
-详细指令说明可以输入help查看
+详细指令说明可以输入help查看，或者查看modules文件夹
