@@ -7,7 +7,7 @@ module.exports = {
     adminCommand: false,
     type: 'api_recent_passed',
     info: '获取最近成绩（不包括未pass成绩）',
-    command: ['pr', 'prsb'],
+    command: ['pr'],
     argsInfo: '(user) (:mode)',
     args: ['userStringWithoutBeatmap', 'modeString'],
     argNecessity: [1, 0],
