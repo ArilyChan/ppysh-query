@@ -1,45 +1,21 @@
 "use strict";
 
 const querystring = require('querystring');
-const https = require('https');
+const fetch = require('node-fetch');
 
 // 参考了白菜的源码：https://github.com/Mother-Ship/cabbageWeb/
 // 考虑到访问速度，只用于通过搜索获取谱面id，按谱面id获取谱面信息时还是用osu api
 class OsusearchApi {
-    static apiRequest(options) {
-        return new Promise((resolve, reject) => {
+    static async apiRequest(options) {
+        try {
             const contents = (options) ? querystring.stringify(options) : "";
-            const requestOptions = {
-                host: 'osusearch.com',
-                port: 443,
-                type: 'https',
-                method: 'GET',
-                path: '/query/?' + contents,
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded',
-                    'Content-Length': contents.length
-                }
-            }
-            let _data = '';
-
-            // console.log("发送请求：" + requestOptions.host + requestOptions.path);
-
-            const req = https.request(requestOptions, function (res) {
-                res.setEncoding('utf8');
-                res.on('data', function (chunk) {
-                    _data += chunk;
-                });
-                res.on('end', function () {
-                    resolve(_data);
-                });
-                res.on('error', function (e) {
-                    console.dir('problem with request: ' + e.message);
-                    reject(e)
-                });
-            });
-            req.write(contents);
-            req.end();
-        })
+            const url = "https://osusearch.com/query/?" + contents;
+            return await fetch(url).then(res => res.json());
+        }
+        catch (ex) {
+            console.log("（不会发送给机器人）--------------\n" + ex + "\n--------------");
+            return { code: "error" };
+        }
     }
 
     static findtheMostSuitable(result, params) {
@@ -65,23 +41,21 @@ class OsusearchApi {
         if (_data.diff_name) params.diff_name = _data.diff_name;
         // if (_data.modes) params.modes = _data.modes; //Standard/Taiko/CtB/Mania
         params.query_order = "play_count";
-        return await this.apiRequest(params).then(data => {
-            try {
-                if (!data || data === "Server error.") return { code: 404 };
-                let result = JSON.parse(data);
-                if (result.result_count === 0) return { code: 404 };
-                let resultBeatmap;
-                if (result.beatmaps.length > 1) resultBeatmap = this.findtheMostSuitable(result.beatmaps, params);
-                else resultBeatmap = result.beatmaps[0];
-                if (returnType === "id") return resultBeatmap.beatmap_id;
-                else if (returnType === "set") return resultBeatmap.beatmapset_id;
-                else return resultBeatmap;
-            }
-            catch (ex) {
-                console.log(ex);
-                return { code: "error" };
-            }
-        });
+        const result = await this.apiRequest(params);
+        try {
+            if (!result || result.code === "error") return { code: "error" };
+            if (result.result_count === 0) return { code: 404 };
+            let resultBeatmap;
+            if (result.beatmaps.length > 1) resultBeatmap = this.findtheMostSuitable(result.beatmaps, params);
+            else resultBeatmap = result.beatmaps[0];
+            if (returnType === "id") return resultBeatmap.beatmap_id;
+            else if (returnType === "set") return resultBeatmap.beatmapset_id;
+            else return resultBeatmap;
+        }
+        catch (ex) {
+            console.log(ex);
+            return { code: "error" };
+        }
     }
 
 

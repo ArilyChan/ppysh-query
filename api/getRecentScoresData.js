@@ -32,6 +32,13 @@ class getRecentScoresData {
                     if (scoreObjects[i].rank != "F") {
                         //output = output + scoreObjects[i].toCompleteString(parseInt(this.apiObject.m));
                         output = output + await scoreObjects[i].toCompleteString(parseInt(this.apiObject.m), true);
+                        // 寻找recent中该图次数
+                        const beatmapId = scoreObjects[i].beatmap_id;
+                        const sameBeatmapCount = scoreObjects.reduce((sum, value, index) => {
+                            if (scoreObjects[index].beatmap_id === beatmapId) return sum + 1;
+                            else return sum;
+                        }, 0);
+                        if (sameBeatmapCount > 1) output += "\n在此之前至少重试了" + (sameBeatmapCount - 1) + "次";
                         return output;
                     }
                 }

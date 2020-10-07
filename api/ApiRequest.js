@@ -1,60 +1,24 @@
 "use strict";
 
 const querystring = require('querystring');
-const https = require('https');
+const fetch = require('node-fetch');
 
 class OsuApi {
-    static apiRequest(options) {
-        return new Promise((resolve, reject) => {
-            const contents = querystring.stringify(options.data);
-            const requestOptions = {
-                host: options.host,
-                port: 443,
-                type: 'https',
-                method: 'GET',
-                path: '/api' + options.path + '?' + contents,
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded',
-                    'Content-Length': contents.length
-                }
-            }
-            let _data = '';
-
-            // console.log("发送请求：" + requestOptions.host + requestOptions.path);
-
-            const req = https.request(requestOptions, function (res) {
-                res.setEncoding('utf8');
-                res.on('data', function (chunk) {
-                    _data += chunk;
-                });
-                res.on('end', function () {
-                    resolve(_data);
-                });
-                res.on('error', function (e) {
-                    console.dir('problem with request: ' + e.message);
-                    reject(e)
-                });
-            });
-            req.write(contents);
-            req.end();
-        })
-    }
-
     static async apiCall(_path, _data, _host) {
-        return await this.apiRequest({
-            path: _path,
-            data: _data,
-            host: _host
-        }).then(data => {
-            try {
-                if (!data || data === "null") return { code: 404 };
-                return JSON.parse(data);
-            }
-            catch (ex) {
-                console.log(ex);
-                return { code: "error" };
-            }
-        });
+        try {
+            const contents = querystring.stringify(_data);
+            const url = "https://" + _host + "/api" + _path + '?' + contents;
+            // console.log(url);
+            const data = await fetch(url).then(res => res.json());
+            if (!data) return { code: "error" };
+            const dataString = JSON.stringify(data);
+            if (dataString === "[]" || dataString === "{}") return { code: 404 };
+            return data;
+        }
+        catch (ex) {
+            console.log("（不会发送给机器人）--------------\n" + ex + "\n--------------");
+            return { code: "error" };
+        }
     }
 
     static async getBeatmaps(options, host, apiKey) {
